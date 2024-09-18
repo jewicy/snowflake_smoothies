@@ -5,8 +5,8 @@ from snowflake.snowpark.functions import when_matched
 
 # Write directly to the app
 st.title(":cup_with_straw: Pending Smoothie Orders :cup_with_straw:")
-
-session = get_active_session()
+cnx=st.connection("snowflake")  
+session=cnx.session()
 my_dataframe = session.table("smoothies.public.orders").filter(col('order_filled')==0).collect()
 # st.dataframe(data=my_dataframe, use_container_width=True)
 if my_dataframe:
@@ -26,5 +26,5 @@ if my_dataframe:
             st.write('Something went wrong!')
 else:
     st.success('There are no pending order right now', icon = '👍')
-cnx=st.connection("snowflake")   
-session=cnx.session()
+ 
+
